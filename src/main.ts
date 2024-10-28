@@ -5,8 +5,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 app.get("/produtos", async(req,res)=>{
-    //OK -> 0 - Criar o banco de dados e iniciar o servidor de banco.
-    //1 - Criar a conexão com o banco
+    
     try{
         const conection = await mysql.createConnection({
             host:process.env.dbhost?process.env.dbhost:"localhost",
@@ -15,10 +14,10 @@ app.get("/produtos", async(req,res)=>{
             database:process.env.dbname?process.env.dbname:"banco1022b",
             port:process.env.dbport?parseInt(process.env.dbport):3306
         })
-        //2 - Realizar uma consulta na tabela
+        
         const [result, fields] = await conection.query("SELECT * from produtos")
         await conection.end()
-        //3 - Devolver os dados pra quem pediu
+        
         res.send(result)
     }catch(e){
         res.status(500).send("Server ERROR")
@@ -26,8 +25,7 @@ app.get("/produtos", async(req,res)=>{
 })
 
 app.get("/usuarios", async(req,res)=>{
-    //OK -> 0 - Criar o banco de dados e iniciar o servidor de banco.
-    //1 - Criar a conexão com o banco
+    
     try{
         const conection = await mysql.createConnection({
             host:process.env.dbhost?process.env.dbhost:"localhost",
@@ -36,10 +34,10 @@ app.get("/usuarios", async(req,res)=>{
             database:process.env.dbname?process.env.dbname:"banco1022b",
             port:process.env.dbport?parseInt(process.env.dbport):3306
         })
-        //2 - Realizar uma consulta na tabela
+        
         const [result, fields] = await conection.query("SELECT * from usuarios")
         await conection.end()
-        //3 - Devolver os dados pra quem pediu
+        
         res.send(result)
     }catch(e){
         res.status(500).send("Server ERROR")
